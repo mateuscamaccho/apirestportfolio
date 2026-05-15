@@ -26,7 +26,7 @@ app.put("/access", async (req: express.Request, res: express.Response) => {
         RETURNING ID`;
         return res.status(201).json({ 
             mensagem: "Criado com sucesso!",
-            acessos: result[0].id + 800
+            acessos: result[0].id
         })
     } catch (err) {
         return res.status(500).json({ 
@@ -47,7 +47,7 @@ app.get("/access", async (req: express.Request, res: express.Response) => {
     }
 })
 
-app.get("/show", async (req: express.Request,res: express.Response) => {
+app.get("/show", async (req: express.Request, res: express.Response) => {
     try {
         const acessos:Entries[] = await sql`SELECT ID, to_char(CREATED_AT, 'DD/MM/YYYY hh24:mm:ss') AS DATA FROM ACESSOS ORDER BY ID DESC LIMIT 20`;
         if (acessos.length <= 0) {
