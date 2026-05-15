@@ -47,15 +47,15 @@ app.get("/access", async (req: express.Request, res: express.Response) => {
     }
 })
 
-app.get("/show", async (req, res) => {
+app.get("/show", async (req: express.Request,res: express.Response) => {
     try {
         const acessos:Entries[] = await sql`SELECT ID, to_char(CREATED_AT, 'DD/MM/YYYY hh24:mm:ss') AS DATA FROM ACESSOS ORDER BY ID DESC LIMIT 20`;
         if (acessos.length <= 0) {
-            res.status(204).json({ mensagem: "nenhum resultado encontrado" })
+            return res.status(204).json({ mensagem: "nenhum resultado encontrado" })
         }
-        res.json(acessos);
+        return res.json(acessos);
     } catch {
-        res.status(404).json({ mensagem: "Não foi possivel consultar!" })
+        return res.status(404).json({ mensagem: "Não foi possivel consultar!" })
     }
 })
 
